@@ -1,0 +1,1 @@
+point1 py 的print是以line结尾，除非使用end
