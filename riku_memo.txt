@@ -1,1 +1,2 @@
 point1 py 的print是以line结尾，除非使用end
+point2 py的键盘监听机制

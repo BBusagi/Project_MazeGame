@@ -10,8 +10,10 @@ map3: https://nangokrstudios.jp/products/recruit/pg/quiz03.txt
 Mainlogic -> Map1 -> Map2 -> Map3
 
 ## Mainlogic
-1. Generating windows   11/9 OK
-2. Character Control
+1. Generating windows   11/9 √
+2. Character control    11/9 √  
+    2.1 Getting Keyboard Input and Judging                  11/9 √  
+    2.2 Clearing the screen                                 11/9 √  
 3. Map system
 4. Item goal system
 5. Game logic system
