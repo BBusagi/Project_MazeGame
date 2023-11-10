@@ -21,9 +21,9 @@ Mainlogic -> Map1 -> Map2 -> Map3
     4.1 'G'
     4.2 'o'
     4.3 Enemy
-5. Game logic system
-    5.1 G&O_logic
-    5.2 turn
-6. UI system
+    4.4 G&O_logic
+5. UI system            11/10 √
+    5.1 time
+6. Game logic system
 7. Enemy system
 8. Comprehensive test
