@@ -12,11 +12,18 @@ Mainlogic -> Map1 -> Map2 -> Map3
 ## Mainlogic
 1. Generating windows   11/9 √
 2. Character control    11/9 √  
-    2.1 Getting Keyboard Input and Judging                  11/9 √  
-    2.2 Clearing the screen                                 11/9 √  
-3. Map system
-4. Item goal system
+    2.1 Getting Keyboard Input and Judging  
+    2.2 Clearing the screen  
+3. Map system           11/10 √
+    3.1 event system
+    3.2 '#'
+4. Item goal system     11/10 √
+    4.1 'G'
+    4.2 'o'
+    4.3 Enemy
 5. Game logic system
+    5.1 G&O_logic
+    5.2 turn
 6. UI system
 7. Enemy system
 8. Comprehensive test
