@@ -99,5 +99,3 @@ while True:
             gametime -= 1
         clear_screen()
         print_maze(maze, player_point)
-
-
