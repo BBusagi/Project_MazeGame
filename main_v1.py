@@ -8,12 +8,12 @@ maze = [
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', 'C', 'o', 'o', 'o', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', 'o', 'o', 'o', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
-player_point = [1, 1]  # Amn, init
+player_point = [5, 1]  # Amn, init
 gametime = 50
 
 collected = sum(row.count('o') for row in maze)
@@ -84,100 +84,6 @@ def event(point,new_point):
             time.sleep(3)
     return new_point
 
-
-# Enemy system
-
-def is_accessible(maze, new_point):
-    x, y = new_point
-    return maze[x][y] == ' '
-
-def enemy_A(enemy_pos, player_pos) :
-    pass
-
-def enemy_B(enemy_pos, player_pos) :
-    pass
-
-# test behavior
-# enemy_C_state = True
-# def enemy_C_temp(enemy_pos, player_pos) :
-#     global enemy_C_state
-#     ex, ey = enemy_pos
-#     if enemy_C_state:
-#         new_point = ex + 1,ey
-#         enemy_C_state = False
-#     else:
-#         new_point = ex - 1,ey
-#         enemy_C_state = True
-#     if is_accessible(maze, new_point):
-#         return new_point
-#     return enemy_pos
-
-# enemy_C_index = 0
-# def enemy_C(enemy_pos, player_pos):
-#     global enemy_C_index
-#     ex, ey = enemy_pos
-#     directions = [ (0, -1), (-1, 0), (0, 1), (1, 0)]  # l f r b         ???
-
-#     new_point = (ex + directions[enemy_C_index][0], ey + directions[enemy_C_index][1])
-
-#     if is_accessible(maze, new_point):
-#         enemy_C_index = (enemy_C_index + 1) % 4
-#         return new_point
-#     else:
-#         return enemy_pos
-    
-enemy_C_index = 0
-
-def enemy_C(enemy_pos, player_pos):
-    
-    global enemy_C_index
-    ex, ey = enemy_pos
-    directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]  # l f r b         ???
-
-    for _ in range(4):
-        new_point = (ex + directions[enemy_C_index][0], ey + directions[enemy_C_index][1])
-        enemy_C_index = (enemy_C_index + 1) % 4
-        if is_accessible(maze, new_point):
-            return new_point
-
-
-def enemy_D(enemy_pos, player_pos) :
-    pass
-
-def enemy_E(enemy_pos, player_pos) :
-    pass
-
-enemy_behaviors = {
-    'A': enemy_A,
-    'B': enemy_B,
-    'C': enemy_C,
-    'D': enemy_D,
-    'E': enemy_E
-}
-
-def find_enemy():
-    enemy_list = {}                 #dic type
-    for i, row in enumerate(maze):
-        for j, value in enumerate(row):
-            if value in ['A', 'B', 'C', 'D', 'E']:
-                enemy_list[(i, j)] = value
-    
-    # test point
-    print(enemy_list)
-
-    return enemy_list
-
-def move_enemy():
-    global new_point
-    enemy_list = find_enemy()
-    for pos, enemy_type in enemy_list.items():
-        move_enemy_instance = enemy_behaviors[enemy_type]
-        new_pos = move_enemy_instance(pos, new_point)
-
-        if new_pos != pos:
-            maze[pos[0]][pos[1]], maze[new_pos[0]][new_pos[1]] = ' ', maze[pos[0]][pos[1]]
-
-
 print_maze(maze, player_point)
 
 while True:
@@ -191,8 +97,5 @@ while True:
         player_point = move_player(player_point, key)
         if maze[new_point[0]][new_point[1]] != '#':
             gametime -= 1
-            move_enemy()
         clear_screen()
         print_maze(maze, player_point)
-
-

@@ -31,6 +31,10 @@ Mainlogic -> Map1 -> Map2 -> Map3
     6.2 test behavior instance          11/12 √
         BUG: hit the wall(enemy)        11/12 √
     6.3 C&D
+        6.3.1 C no wall
+        6.3.2 C with wall
+            BUG: Enemy's movement are not counted after player touched the wall
+            BUG: multipic C looping error
     6.4 E
     6.5 A&B
 7. Comprehensive test
