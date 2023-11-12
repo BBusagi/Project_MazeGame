@@ -1,7 +1,7 @@
 # Project_MazeGame
  Create a game based on the requirements
 
-### require [pdf](./エンジニア採用課題_require.pdf)  
+### require [pdf](./files/エンジニア採用課題_require.pdf)  
 map1: https://nangokrstudios.jp/products/recruit/pg/quiz01.txt  
 map2: https://nangokrstudios.jp/products/recruit/pg/quiz02.txt  
 map3: https://nangokrstudios.jp/products/recruit/pg/quiz03.txt  
@@ -33,8 +33,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
     6.3 C&D
         6.3.1 C no wall
         6.3.2 C with wall
-            BUG: Enemy's movement are not counted after player touched the wall
-            BUG: multipic C looping error
+            BUG: Enemy's movement are not counted after player touched the wall     11/12 √
+            BUG: multipic C looping error                                           TODO
     6.4 E
     6.5 A&B
 7. Comprehensive test
