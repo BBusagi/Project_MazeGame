@@ -10,11 +10,15 @@ map3: https://nangokrstudios.jp/products/recruit/pg/quiz03.txt
 Mainlogic -> Map1 -> Map2 -> Map3
 
 ## Mainlogic
-1. 生成窗口
-2. 角色控制
-3. 地图导入
-4. item goal 导入
-5. 游戏逻辑导入
-6. UI导入
-7. 敌人系统导入
+7. 敌人ai导入
 8. 综合测试
+
+## 路径搜索
+无敌人  广度优先算法 map1
+添加敌人
+
+不确定：
+G在收集完毕之前，是否可以通过
+移动方向的明确，
+碰撞交互明确
+敌人与玩家的碰撞交互，敌人与敌人的碰撞交互
