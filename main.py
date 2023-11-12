@@ -18,6 +18,7 @@ gametime = 50
 
 collected = sum(row.count('o') for row in maze)
 score = 0
+result = []
 new_point = [0,0]
 
 def clear_screen():                                                                                      #point3
@@ -61,6 +62,7 @@ def event(point,new_point):
     global collected
     global gametime
     global score
+    global result
     element = maze[new_point[0]][new_point[1]]
     if element == '#':
         return point
@@ -69,6 +71,8 @@ def event(point,new_point):
             score = gametime
             print("YOU WIN, CONGRATULATIONS!")
             print("Score:", score)
+            output = ''.join(result)
+            print("Output:", output)
             while True:
                 time.sleep(3)
     elif element == 'o':
@@ -84,13 +88,15 @@ print_maze(maze, player_point)
 
 while True:
     key = msvcrt.getch().decode('utf-8').lower()                                                            #point2
+    result.append(key)
     if gametime == 0:
         print("YOU LOSS, GAME OVER")
         while True:
             time.sleep(3)
     if key in ['w', 'a', 's', 'd', 'q']:
         player_point = move_player(player_point, key)
-        gametime -= 1
+        if maze[new_point[0]][new_point[1]] != '#':
+            gametime -= 1
         clear_screen()
         print_maze(maze, player_point)
 
