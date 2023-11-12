@@ -97,9 +97,16 @@ def enemy_A(enemy_pos, player_pos) :
 def enemy_B(enemy_pos, player_pos) :
     pass
 
+enemy_C_state = True
 def enemy_C(enemy_pos, player_pos) :
+    global enemy_C_state
     ex, ey = enemy_pos
-    new_point = ex+1,ey
+    if enemy_C_state:
+        new_point = ex + 1,ey
+        enemy_C_state = False
+    else:
+        new_point = ex - 1,ey
+        enemy_C_state = True
     if is_accessible(maze, new_point):
         return new_point
     return enemy_pos

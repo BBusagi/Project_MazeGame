@@ -28,7 +28,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
     5.2 output            11/12 √
 6. Enemy system
     6.1 catalog           11/12 √
-    6.2 hit the wall(enemy) 11/12 √
+    6.2 test behavior instance          11/12 √
+        BUG: hit the wall(enemy)        11/12 √
     6.3 C&D
     6.4 E
     6.5 A&B
