@@ -23,11 +23,15 @@ Mainlogic -> Map1 -> Map2 -> Map3
     4.2 'o'
     4.3 Enemy
     4.4 G&O_logic
-5. UI system            11/10 √
+5. UI system            
     5.1 time&score        11/10 √
     5.2 output            11/12 √
-6. Game logic system
-7. Enemy system
-8. Comprehensive test
+6. Enemy system
+    6.1 catalog           11/12 √
+    6.2 hit the wall(enemy) 11/12 √
+    6.3 C&D
+    6.4 E
+    6.5 A&B
+7. Comprehensive test
 
 ## Automation scripts

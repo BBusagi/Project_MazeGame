@@ -9,6 +9,5 @@ maze = [
 ]
 
 player_point = [1, 1]  # Amn, init
-
-collected = sum(row.count('o') for row in maze)
-print(collected)
+print(maze[0][0])
+print(maze[player_point[0]][player_point[1]])
