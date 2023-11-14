@@ -89,7 +89,8 @@ def event(point,new_point):
 
 def is_accessible(maze, new_point):
     x, y = new_point
-    return maze[x][y] in [' ', 'G']    #point4
+    return maze[x][y] == ' '
+    #return maze[x][y] in [' ', 'G']    #point4
 
 def enemy_A(enemy_pos, player_pos) :
     pass
