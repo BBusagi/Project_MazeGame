@@ -26,16 +26,21 @@ Mainlogic -> Map1 -> Map2 -> Map3
 5. UI system            
     5.1 time&score        11/10 √
     5.2 output            11/12 √
-6. Enemy system
-    6.1 catalog           11/12 √
-    6.2 test behavior instance          11/12 √
-        BUG: hit the wall(enemy)        11/12 √
-    6.3 C&D
-        6.3.1 C no wall
-        6.3.2 C with wall
-            BUG: Enemy's movement are not counted after player touched the wall     11/12 √
+6. Enemy system  
+    6.1 catalog           11/12 √  
+    6.2 test behavior instance          11/12 √  
+        BUG: hit the wall(enemy)        11/12 √  
+    6.3 C&D  
+        6.3.1 C no wall  
+        6.3.2 C with wall  
+            BUG: Enemy's movement are not counted after player touched the wall     11/12 √  
             BUG: multipic C looping error                                           TODO
-    6.4 E
+
+        Require Update
+        6.3.1 C logic ()
+            BUG: multipic C looping error                                           TODO
+        6.3.2 D logic ()
+    6.4 E  
     6.5 A&B
 7. Comprehensive test
 
