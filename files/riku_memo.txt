@@ -1,9 +1,10 @@
 point1 py 的print是以line结尾，除非使用end
 point2 py的键盘监听机制
 point3 更新屏幕
+point4 != # -> ==''
 
 规则补充
-敌人可以重叠
+敌人不可以重叠
 
 Enemy
 

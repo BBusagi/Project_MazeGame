@@ -34,14 +34,14 @@ Mainlogic -> Map1 -> Map2 -> Map3
         6.3.1 C no wall  
         6.3.2 C with wall  
             BUG: Enemy's movement are not counted after player touched the wall     11/12 √  
-            BUG: multipic C looping error                                           TODO
+            BUG: multipic C looping error  
 
-        Require Update
-        6.3.1 C logic ()
-            BUG: multipic C looping error                                           TODO
-        6.3.2 D logic ()
+    Require Update:  
+    6.3 C&D logic ()                                                  11/14 √  
+            BUG: multipic C looping error                             11/14 √  
+    6.3 D logic ()                                                  11/14 √  
     6.4 E  
-    6.5 A&B
+    6.5 A&B  
 7. Comprehensive test
 
 ## Automation scripts

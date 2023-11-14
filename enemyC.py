@@ -5,7 +5,7 @@ maze = [
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', 'o', 'o', 'o', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', 'C', 'o', 'o', 'o', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
@@ -18,12 +18,13 @@ def print_maze(maze):
         print(' '.join(row))
     print()
 
-def find_enemy_C(maze):
+def find_all_enemy_C(maze):
+    enemy_positions = []
     for i, row in enumerate(maze):
         for j, cell in enumerate(row):
             if cell == 'C':
-                return i, j
-    return None
+                enemy_positions.append((i, j))
+    return enemy_positions
 
 def is_accessible(maze, point):
     x, y = point
@@ -41,14 +42,23 @@ def move_enemy_C(maze, enemy_pos):
 
     return enemy_pos
 
-enemy_C_pos = find_enemy_C(maze)
+def move_all_enemy_C(maze, enemy_positions):
+    new_positions = []
+    for pos in enemy_positions:
+        maze[pos[0]][pos[1]] = ' '
+    for pos in enemy_positions:
+        new_pos = move_enemy_C(maze, pos)
+        new_positions.append(new_pos)
+    return new_positions
+
+enemy_C_positions = find_all_enemy_C(maze)
 
 while True:
     clear_screen()
     print_maze(maze)
-    key = input("Enter command (c to move enemy C, q to quit): ").lower()
+    key = input("enemy C: ").lower()
     
     if key == 'c':
-        enemy_C_pos = move_enemy_C(maze, enemy_C_pos)
+        enemy_C_positions = move_all_enemy_C(maze, enemy_C_positions)
     elif key == 'q':
         break
