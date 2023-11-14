@@ -39,6 +39,7 @@ Mainlogic -> Map1 -> Map2 -> Map3
     Require Update:  
     6.3 C&D logic ()                                                  11/14 √  
             BUG: multipic C looping error                             11/14 √  
+            BUG: enemy eat the item and goal
     6.3 D logic ()                                                  11/14 √  
     6.4 E  
     6.5 A&B  

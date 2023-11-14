@@ -6,10 +6,10 @@ import time
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', 'C', ' ', ' ', 'D', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'D', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', 'C', 'o', 'o', 'o', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
+    ['#', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', ' ', ' ', 'E', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', 'D', 'o', 'o', 'o', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
@@ -89,7 +89,7 @@ def event(point,new_point):
 
 def is_accessible(maze, new_point):
     x, y = new_point
-    return maze[x][y] == ' '    #point4
+    return maze[x][y] in [' ', 'G']    #point4
 
 def enemy_A(enemy_pos, player_pos) :
     pass
@@ -117,8 +117,16 @@ def enemy_D(enemy_pos, player_pos) :
             return new_point
     return enemy_pos
 
+enemy_E_state = 'C'
 def enemy_E(enemy_pos, player_pos) :
-    EnemyE_state = True
+    global enemy_E_state
+    if enemy_E_state == 'C':
+        new_pos = enemy_C(enemy_pos, player_pos)
+        enemy_E_state = 'D'
+    else:
+        new_pos = enemy_D(enemy_pos, player_pos)
+        enemy_E_state = 'C'
+    return new_pos
 
 enemy_behaviors = {
     'A': enemy_A,
