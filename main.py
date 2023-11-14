@@ -6,8 +6,8 @@ import time
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', ' ', 'C', ' ', ' ', 'C', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', 'D', ' ', ' ', 'D', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
@@ -131,29 +131,32 @@ enemy_behaviors = {
     'E': enemy_E
 }
 
-def find_enemy():
-    enemy_list = {}                 #dic type
+enemy_list = {}
+def initialize_enemy_list():
+    global enemy_list
     for i, row in enumerate(maze):
         for j, value in enumerate(row):
             if value in ['A', 'B', 'C', 'D', 'E']:
                 enemy_list[(i, j)] = value
-    
-    # test point
-    print(enemy_list)
-
-    return enemy_list
 
 def move_enemy():
-    global new_point
-    enemy_list = find_enemy()
-    for pos, enemy_type in enemy_list.items():
+    global new_point, enemy_list
+    current_positions = list(enemy_list.keys())
+
+    for pos in current_positions:
+        if pos not in enemy_list:
+            continue
+
+        enemy_type = enemy_list[pos]
         move_enemy_instance = enemy_behaviors[enemy_type]
         new_pos = move_enemy_instance(pos, new_point)
 
         if new_pos != pos:
             maze[pos[0]][pos[1]], maze[new_pos[0]][new_pos[1]] = ' ', maze[pos[0]][pos[1]]
+            enemy_list[new_pos] = enemy_list.pop(pos)
 
 
+initialize_enemy_list()
 print_maze(maze, player_point)
 
 while True:
@@ -170,3 +173,6 @@ while True:
             move_enemy()
         clear_screen()
         print_maze(maze, player_point)
+        
+        # test point
+        print(enemy_list)
