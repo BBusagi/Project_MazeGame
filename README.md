@@ -37,12 +37,12 @@ Mainlogic -> Map1 -> Map2 -> Map3
             BUG: multipic C looping error  
 
     Require Update:  
-    6.3 C&D logic ()                                                  11/14 √  
+    6.3 C&D (simple)                                                  11/14 √  
             BUG: multipic C looping error                             √  
-            BUG: enemy eat the item and goal
-    6.3 D logic ()                                                  11/14 √  
-    6.4 E  
-    6.5 A&B  
+            BUG: enemy eat the item and goal - point 4
+    6.4 E (simple)                                                    11/14 √  
+    6.5 A&B (simple)                                                  11/14 √  
+    
 7. Comprehensive test
 
 ## Automation scripts

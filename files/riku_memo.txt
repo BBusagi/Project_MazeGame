@@ -29,3 +29,16 @@ Enemy
 
 敌人E
 首先是C的行动，下一次是D的行动，然后是C的行动，依此类推。
+
+
+def enemy_A(enemy_pos, player_pos) :
+[(1, 0), (0, -1), (-1, 0), (0, 1)]  # d l u r
+
+def enemy_B(enemy_pos, player_pos) :
+[(-1, 0), (0, -1), (1, 0), (0, 1)]  # u l d r
+
+def enemy_C(enemy_pos, player_pos):
+[(0, -1), (-1, 0), (0, 1), (1, 0)]  # l f r b
+
+def enemy_D(enemy_pos, player_pos) :
+[(0, 1), (-1, 0), (0, -1), (1, 0)]  # r f l b

@@ -6,10 +6,10 @@ import time
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', 'E', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', 'D', 'o', 'o', 'o', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'D', 'G', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', 'A', ' ', ' ', 'B', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
@@ -93,10 +93,24 @@ def is_accessible(maze, new_point):
     #return maze[x][y] in [' ', 'G']    #point4
 
 def enemy_A(enemy_pos, player_pos) :
-    pass
+    directions = [(1, 0), (0, -1), (-1, 0), (0, 1)]  # d l u r
+    ex, ey = enemy_pos
+
+    for direction in directions:
+        new_point = (ex + direction[0], ey + direction[1])
+        if is_accessible(maze, new_point):
+            return new_point
+    return enemy_pos
 
 def enemy_B(enemy_pos, player_pos) :
-    pass
+    directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]  # u l d r
+    ex, ey = enemy_pos
+
+    for direction in directions:
+        new_point = (ex + direction[0], ey + direction[1])
+        if is_accessible(maze, new_point):
+            return new_point
+    return enemy_pos
 
 def enemy_C(enemy_pos, player_pos):
     directions = [(0, -1), (-1, 0), (0, 1), (1, 0)]  #l f r b
@@ -176,5 +190,3 @@ while True:
             move_enemy()
         clear_screen()
         print_maze(maze, player_point)
-
-
