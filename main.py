@@ -6,10 +6,10 @@ import time
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', 'B', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '#'],
-    ['#', ' ', ' ', ' ', 'A', ' ', ' ', ' ', ' ', 'G', '#'],
+    ['#', ' ', ' ', ' ', 'B', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
@@ -107,15 +107,8 @@ def enemy_A(enemy_pos, player_pos) :
     dx = ex - px
     dy = ey - py
 
-    if dy > 0:
-        dy_move = (0, -1)
-    else:
-        dy_move = (0, 1)
-
-    if dx > 0:
-        dx_move = (-1, 0)
-    else:
-        dx_move = (1, 0)
+    dy_move = (0, -1) if dy > 0 else (0, 1)
+    dx_move = (-1, 0) if dx > 0 else (1, 0)
 
     if dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1])):
         direction = [dx_move]
@@ -127,7 +120,21 @@ def enemy_A(enemy_pos, player_pos) :
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
 def enemy_B(enemy_pos, player_pos) :
-    direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # u l d r
+    ex, ey = enemy_pos
+    px, py = player_pos
+
+    dx = ex - px
+    dy = ey - py
+
+    dy_move = (0, -1) if dy > 0 else (0, 1)
+    dx_move = (-1, 0) if dx > 0 else (1, 0)
+
+    if dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1])):
+        direction = [dy_move]
+    elif dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1])):
+        direction = [dx_move]
+    else:
+        direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # u l d r
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
 def enemy_C(enemy_pos, player_pos):
