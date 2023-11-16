@@ -6,9 +6,9 @@ import time
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', 'B', ' ', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', ' ', ' ', 'C', ' ', ' ', '#'],
     ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', ' ', '#'],
+    ['#', ' ', ' ', ' ', ' ', 'C', ' ', 'D', 'o', ' ', '#'],
     ['#', ' ', ' ', ' ', 'B', ' ', ' ', ' ', ' ', 'G', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
@@ -115,7 +115,7 @@ def enemy_A(enemy_pos, player_pos) :
     elif dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1])):
         direction = [dy_move]
     else:
-        direction = [(1, 0), (0, -1), (-1, 0), (0, 1)] # d l u r
+        direction = [(1, 0), (0, -1), (-1, 0), (0, 1)] # down left up right
 
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
@@ -134,15 +134,36 @@ def enemy_B(enemy_pos, player_pos) :
     elif dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1])):
         direction = [dx_move]
     else:
-        direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # u l d r
+        direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # up left down right
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
-def enemy_C(enemy_pos, player_pos):
-    direction = [(0, -1), (-1, 0), (0, 1), (1, 0)] # l f r b
+def enemy_C(enemy_pos, player_pos):     # left forward right back
+    orientation = enemy_list[enemy_pos]['orientation']
+    if orientation == 'up':
+        direction = [(0, -1), (-1, 0), (0, 1), (1, 0)] # left forward right back
+    elif orientation == 'down':
+        direction = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    elif orientation == 'left':
+        direction = [(1, 0), (0, -1), (-1, 0), (0, 1)]
+    elif orientation == 'right':
+        direction = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+    else:
+        direction = [(0, 0)]
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
 def enemy_D(enemy_pos, player_pos) :
-    direction = [(0, 1), (-1, 0), (0, -1), (1, 0)] # r f l b
+    orientation = enemy_list[enemy_pos]['orientation']
+    if orientation == 'up':
+        direction = [(0, 1), (-1, 0), (0, -1), (1, 0)] # right forward left back
+    elif orientation == 'down':
+        direction = [(0, -1), (1, 0), (0, 1), (-1, 0)]
+    elif orientation == 'left':
+        direction = [(-1, 0), (0, -1), (1, 0), (0, 1)]
+    elif orientation == 'right':
+        direction = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    else:
+        direction = [(0, 0)]
+
     return move_enemy_func(enemy_pos, player_pos, direction)  
 
 enemy_E_state = 'C'
@@ -172,6 +193,29 @@ def initialize_enemy_list():
             if value in ['A', 'B', 'C', 'D', 'E']:
                 enemy_list[(i, j)] = {'type': value, 'orientation': 'up'}
 
+def update_orientation(pos, new_pos):
+    global enemy_list
+
+    ox, oy = pos
+    nx, ny = new_pos
+
+    dx = nx - ox
+    dy = ny - oy
+
+    if dx == 1:
+        new_orientation = 'down'
+    elif dx == -1:
+        new_orientation = 'up'
+    elif dy == 1:
+        new_orientation = 'right'
+    elif dy == -1:
+        new_orientation = 'left'
+    else:
+        new_orientation = enemy_list[pos]['orientation']
+
+    enemy_list[pos]['orientation'] = new_orientation
+
+
 def move_enemy():
     global new_point, enemy_list
     current_positions = list(enemy_list.keys())
@@ -186,6 +230,11 @@ def move_enemy():
         new_pos = move_enemy_instance(pos, player_point)
 
         if new_pos != pos:
+            if enemy_type in ['C', 'D', 'E']:
+                update_orientation(pos, new_pos)
+            else:
+                enemy_list[pos]['orientation'] = 'None'
+                
             maze[pos[0]][pos[1]], maze[new_pos[0]][new_pos[1]] = ' ', maze[pos[0]][pos[1]]
             enemy_list[new_pos] = enemy_list.pop(pos)
 

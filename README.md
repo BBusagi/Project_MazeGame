@@ -42,7 +42,11 @@ Mainlogic -> Map1 -> Map2 -> Map3
             BUG: enemy eat the item and goal - point 4
     6.4 E (simple)                                                    11/14 √  
     6.5 A&B (simple)                                                  11/14 √  
-    6.6 Global enemy_list
+    6.6 Global enemy_list                                             11/14 √
+    6.7 A&B (complete)                                                11/14 √
+    6.8 C&D                                                           11/16 √
+    6.9 E                                                             11/16 √
+
 7. Comprehensive test
 
 ## Automation scripts
