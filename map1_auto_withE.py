@@ -1,6 +1,7 @@
 from collections import deque
 
-maze = [
+gametime1 = 50
+maze1 = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', 'o', ' ', ' ', 'A', '#', 'B', ' ', ' ', 'G', '#'],
     ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
@@ -10,15 +11,26 @@ maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
-# 初始化变量
-gametime = 50
+gametime = gametime1
+maze = maze1
+
 ROWS, COLS = len(maze), len(maze[0])
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]
 start = end = None
 items = set()
 enemies = {}  # 用于存储敌人的位置和类型
 
-# 扫描迷宫以初始化起点、终点、物品和敌人位置
+# for i, row in enumerate(maze):
+#     for j, value in enumerate(row):
+#         if value in ['A', 'B', 'C', 'D', 'E']:
+#             enemies[(i, j)] = {'type': value, 'orientation': 'up'}
+#         elif value == 'S':
+#             start = (i, j)
+#         elif value == 'G':
+#             end = (i, j)
+#         elif value == 'o':
+#             items.add((i, j))
+
 for r in range(ROWS):
     for c in range(COLS):
         if maze[r][c] == 'S':

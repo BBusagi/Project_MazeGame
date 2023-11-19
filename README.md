@@ -49,6 +49,7 @@ Mainlogic -> Map1 -> Map2 -> Map3
 
 7. Auto
     7.1 map1_auto_noEnmey                                             11/19 √
-    7.2 map1_auto_withEnmey
+    7.2 map1_auto_withEnmey                                           11/19 √
+        TIP: enemies,enemy_list
 
 ## Automation scripts
