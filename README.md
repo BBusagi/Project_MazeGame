@@ -47,6 +47,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
     6.8 C&D                                                           11/16 √
     6.9 E                                                             11/16 √
 
-7. Comprehensive test
+7. Auto
+    7.1 map1_auto_noEnmey                                             11/19 √
+    7.2 map1_auto_withEnmey
 
 ## Automation scripts

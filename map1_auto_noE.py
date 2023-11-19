@@ -1,6 +1,7 @@
 from collections import deque
 
-maze = [
+gametime1 = 50
+maze1 = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', 'o', ' ', ' ', 'A', '#', 'B', ' ', ' ', 'G', '#'],
     ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
@@ -10,7 +11,8 @@ maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
-gametime = 50
+gametime = gametime1
+maze = maze1
 
 ROWS, COLS = len(maze), len(maze[0])
 
@@ -62,6 +64,6 @@ def bfs():
 
 directions_seq = bfs()
 if directions_seq:
-    print("移动序列:", ''.join(directions_seq))
+    print("Path:", ''.join(directions_seq))
 else:
-    print("没有找到路径")
+    print("No Path")

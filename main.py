@@ -92,7 +92,7 @@ def is_accessible(maze, new_point):
     return maze[x][y] == ' '
     #return maze[x][y] in [' ', 'G']    #point4
 
-def move_enemy_func(enemy_pos, player_pos, directions):
+def move_enemy_func(enemy_pos, directions):
     ex, ey = enemy_pos
     for direction in directions:
         new_point = (ex + direction[0], ey + direction[1])
@@ -117,7 +117,7 @@ def enemy_A(enemy_pos, player_pos) :
     else:
         direction = [(1, 0), (0, -1), (-1, 0), (0, 1)] # down left up right
 
-    return move_enemy_func(enemy_pos, player_pos, direction)  
+    return move_enemy_func(enemy_pos, direction)  
 
 def enemy_B(enemy_pos, player_pos) :
     ex, ey = enemy_pos
@@ -135,7 +135,7 @@ def enemy_B(enemy_pos, player_pos) :
         direction = [dx_move]
     else:
         direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # up left down right
-    return move_enemy_func(enemy_pos, player_pos, direction)  
+    return move_enemy_func(enemy_pos, direction)  
 
 def enemy_C(enemy_pos, player_pos):     # left forward right back
     orientation = enemy_list[enemy_pos]['orientation']
@@ -149,7 +149,7 @@ def enemy_C(enemy_pos, player_pos):     # left forward right back
         direction = [(-1, 0), (0, 1), (1, 0), (0, -1)]
     else:
         direction = [(0, 0)]
-    return move_enemy_func(enemy_pos, player_pos, direction)  
+    return move_enemy_func(enemy_pos, direction)  
 
 def enemy_D(enemy_pos, player_pos) :
     orientation = enemy_list[enemy_pos]['orientation']
@@ -164,7 +164,7 @@ def enemy_D(enemy_pos, player_pos) :
     else:
         direction = [(0, 0)]
 
-    return move_enemy_func(enemy_pos, player_pos, direction)  
+    return move_enemy_func(enemy_pos, direction)  
 
 enemy_E_state = 'C'
 def enemy_E(enemy_pos, player_pos) :
