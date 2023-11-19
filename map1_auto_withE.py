@@ -1,16 +1,17 @@
 from collections import deque
 
-gametime = 50
 maze = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
     ['#', 'o', ' ', ' ', 'A', '#', 'B', ' ', ' ', 'G', '#'],
     ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
     ['#', ' ', '#', ' ', 'o', '#', 'o', ' ', ' ', ' ', '#'],
     ['#', ' ', '#', ' ', '#', '#', '#', ' ', '#', ' ', '#'],
-    ['#', ' ', ' ', ' ', ' ', 'o', ' ', ' ', ' ', 'o', '#'],
+    ['#', 'S', ' ', ' ', ' ', 'o', ' ', ' ', ' ', 'o', '#'],
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
+# 初始化变量
+gametime = 50
 ROWS, COLS = len(maze), len(maze[0])
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]
 start = end = None
@@ -37,7 +38,7 @@ def move_enemy_func(enemy_pos, directions):
     ex, ey = enemy_pos
     for direction in directions:
         new_point = (ex + direction[0], ey + direction[1])
-        if is_accessible(maze, new_point, enemies):
+        if is_accessible(maze, new_point,enemies):
             return new_point
     return enemy_pos
 
@@ -51,9 +52,9 @@ def enemy_A(enemy_pos, player_pos) :
     dy_move = (0, -1) if dy > 0 else (0, 1)
     dx_move = (-1, 0) if dx > 0 else (1, 0)
 
-    if dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1]), enemies):
+    if dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1]),enemies):
         direction = [dx_move]
-    elif dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1]), enemies):
+    elif dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1]),enemies):
         direction = [dy_move]
     else:
         direction = [(1, 0), (0, -1), (-1, 0), (0, 1)] # down left up right
@@ -70,9 +71,9 @@ def enemy_B(enemy_pos, player_pos) :
     dy_move = (0, -1) if dy > 0 else (0, 1)
     dx_move = (-1, 0) if dx > 0 else (1, 0)
 
-    if dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1]), enemies):
+    if dy != 0 and is_accessible(maze, (ex + dy_move[0], ey + dy_move[1]),enemies):
         direction = [dy_move]
-    elif dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1]), enemies):
+    elif dx != 0 and is_accessible(maze, (ex + dx_move[0], ey + dx_move[1]),enemies):
         direction = [dx_move]
     else:
         direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # up left down right
@@ -136,7 +137,6 @@ def initialize_enemy_list():
 
 # 更新敌人位置的函数
 def update_enemies(enemies, player_pos):
-    global enemy_list  # 引用全局变量
     new_enemies = {}
     for pos, type in enemies.items():
         if type == 'A':
@@ -151,9 +151,6 @@ def update_enemies(enemies, player_pos):
             new_pos = enemy_E(pos, player_pos)
 
         new_enemies[new_pos] = type
-        if pos in enemy_list:
-            enemy_list[new_pos] = enemy_list.pop(pos)
-
     return new_enemies
 
 def bfs():
@@ -185,7 +182,6 @@ def bfs():
     return None
 
 # 运行 BFS 寻路算法
-initialize_enemy_list()
 path = bfs()
 if path:
     print("Path:", ''.join(path))
