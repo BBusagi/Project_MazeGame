@@ -31,15 +31,8 @@ for i, row in enumerate(maze):
         elif value == 'o':
             items.add((i, j))
 
-enemy_list = {}
-for i, row in enumerate(maze):
-    for j, value in enumerate(row):
-        if value in ['A', 'B', 'C', 'D', 'E']:
-            enemy_list[(i, j)] = {'type': value, 'orientation': 'up'}
-
 # checkpoint
 print(enemies)
-print(enemy_list)
 
 def is_accessible(maze, point, enemies):
     x, y = point
@@ -91,7 +84,7 @@ def enemy_B(enemy_pos, player_pos) :
     return move_enemy_func(enemy_pos, direction)  
 
 def enemy_C(enemy_pos, player_pos):     # left forward right back
-    orientation = enemy_list[enemy_pos]['orientation']
+    orientation = enemies[enemy_pos]['orientation']
     if orientation == 'up':
         direction = [(0, -1), (-1, 0), (0, 1), (1, 0)] # left forward right back
     elif orientation == 'down':
@@ -105,7 +98,7 @@ def enemy_C(enemy_pos, player_pos):     # left forward right back
     return move_enemy_func(enemy_pos, direction)  
 
 def enemy_D(enemy_pos, player_pos) :
-    orientation = enemy_list[enemy_pos]['orientation']
+    orientation = enemies[enemy_pos]['orientation']
     if orientation == 'up':
         direction = [(0, 1), (-1, 0), (0, -1), (1, 0)] # right forward left back
     elif orientation == 'down':
@@ -147,8 +140,37 @@ def update_enemies(enemies, player_pos):
         elif type == 'E':
             new_pos = enemy_E(pos, player_pos)
 
+        if new_pos != pos:
+            if type in ['C', 'D', 'E']:
+                orientation = update_orientation(pos, new_pos)
+
         new_enemies[new_pos] = {'type': type, 'orientation': orientation}
+        
+    # #checkpoint
+    # print(new_enemies)
     return new_enemies
+
+def update_orientation(pos, new_pos):
+    global enemies
+
+    ox, oy = pos
+    nx, ny = new_pos
+
+    dx = nx - ox
+    dy = ny - oy
+
+    if dx == 1:
+        new_orientation = 'down'
+    elif dx == -1:
+        new_orientation = 'up'
+    elif dy == 1:
+        new_orientation = 'right'
+    elif dy == -1:
+        new_orientation = 'left'
+    else:
+        new_orientation = -1
+
+    return new_orientation
 
 def bfs():
     global gametime
