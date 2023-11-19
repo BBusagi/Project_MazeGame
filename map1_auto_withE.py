@@ -18,29 +18,28 @@ ROWS, COLS = len(maze), len(maze[0])
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]
 start = end = None
 items = set()
-enemies = {}  # 用于存储敌人的位置和类型
 
-# for i, row in enumerate(maze):
-#     for j, value in enumerate(row):
-#         if value in ['A', 'B', 'C', 'D', 'E']:
-#             enemies[(i, j)] = {'type': value, 'orientation': 'up'}
-#         elif value == 'S':
-#             start = (i, j)
-#         elif value == 'G':
-#             end = (i, j)
-#         elif value == 'o':
-#             items.add((i, j))
+enemies = {}
+for i, row in enumerate(maze):
+    for j, value in enumerate(row):
+        if value in ['A', 'B', 'C', 'D', 'E']:
+            enemies[(i, j)] = {'type': value, 'orientation': 'up'}
+        elif value == 'S':
+            start = (i, j)
+        elif value == 'G':
+            end = (i, j)
+        elif value == 'o':
+            items.add((i, j))
 
-for r in range(ROWS):
-    for c in range(COLS):
-        if maze[r][c] == 'S':
-            start = (r, c)
-        elif maze[r][c] == 'G':
-            end = (r, c)
-        elif maze[r][c] == 'o':
-            items.add((r, c))
-        elif maze[r][c] in ['A', 'B', 'C', 'D', 'E']:
-            enemies[(r, c)] = maze[r][c]
+enemy_list = {}
+for i, row in enumerate(maze):
+    for j, value in enumerate(row):
+        if value in ['A', 'B', 'C', 'D', 'E']:
+            enemy_list[(i, j)] = {'type': value, 'orientation': 'up'}
+
+# checkpoint
+print(enemies)
+print(enemy_list)
 
 def is_accessible(maze, point, enemies):
     x, y = point
@@ -131,26 +130,12 @@ def enemy_E(enemy_pos, player_pos) :
         enemy_E_state = 'C'
     return new_pos
 
-enemy_behaviors = {
-    'A': enemy_A,
-    'B': enemy_B,
-    'C': enemy_C,
-    'D': enemy_D,
-    'E': enemy_E
-}
-
-enemy_list = {}
-def initialize_enemy_list():
-    global enemy_list
-    for i, row in enumerate(maze):
-        for j, value in enumerate(row):
-            if value in ['A', 'B', 'C', 'D', 'E']:
-                enemy_list[(i, j)] = {'type': value, 'orientation': 'up'}
-
-# 更新敌人位置的函数
 def update_enemies(enemies, player_pos):
     new_enemies = {}
-    for pos, type in enemies.items():
+    for pos, enemy_info  in enemies.items():
+        type = enemy_info['type']
+        orientation = enemy_info['orientation']
+
         if type == 'A':
             new_pos = enemy_A(pos, player_pos)
         elif type == 'B':
@@ -162,7 +147,7 @@ def update_enemies(enemies, player_pos):
         elif type == 'E':
             new_pos = enemy_E(pos, player_pos)
 
-        new_enemies[new_pos] = type
+        new_enemies[new_pos] = {'type': type, 'orientation': orientation}
     return new_enemies
 
 def bfs():
@@ -186,14 +171,15 @@ def bfs():
             if is_accessible(maze, new_point, current_enemies) and (new_r, new_c, collected) not in visited:
                 new_collected = collected | ({new_point} if maze[new_r][new_c] == 'o' else set())
                 new_path = path + ['udlrw'[i]]
+
                 new_enemies = update_enemies(current_enemies, (new_r, new_c))
                 new_state = (new_point, new_collected, steps + 1, new_path, new_enemies)
+
                 queue.append(new_state)
                 visited.add((new_r, new_c, new_collected))
 
     return None
 
-# 运行 BFS 寻路算法
 path = bfs()
 if path:
     print("Path:", ''.join(path))
