@@ -3,7 +3,7 @@ from collections import deque
 gametime1 = 50
 maze1 = [
     ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-    ['#', 'o', ' ', ' ', 'A', '#', 'B', ' ', ' ', 'G', '#'],
+    ['#', 'o', ' ', ' ', 'C', '#', 'B', ' ', ' ', 'G', '#'],
     ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
     ['#', ' ', '#', ' ', 'o', '#', 'o', ' ', ' ', ' ', '#'],
     ['#', ' ', '#', ' ', '#', '#', '#', ' ', '#', ' ', '#'],
@@ -146,8 +146,8 @@ def update_enemies(enemies, player_pos):
 
         new_enemies[new_pos] = {'type': type, 'orientation': orientation}
         
-    # #checkpoint
-    # print(new_enemies)
+    #checkpoint
+    print(new_enemies)
     return new_enemies
 
 def update_orientation(pos, new_pos):
