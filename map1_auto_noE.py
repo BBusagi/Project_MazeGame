@@ -1,20 +1,19 @@
 from collections import deque
 
-# 定义迷宫布局
 maze = [
-    "###########",
-    "#o   #   G#",
-    "# ##   ## #",
-    "# # o#o   #",
-    "# # ### # #",
-    "#S   o   o#",
-    "###########"
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+    ['#', 'o', ' ', ' ', 'A', '#', 'B', ' ', ' ', 'G', '#'],
+    ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
+    ['#', ' ', '#', ' ', 'o', '#', 'o', ' ', ' ', ' ', '#'],
+    ['#', ' ', '#', ' ', '#', '#', '#', ' ', '#', ' ', '#'],
+    ['#', 'S', ' ', ' ', ' ', 'o', ' ', ' ', ' ', 'o', '#'],
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
-# 迷宫的行数和列数
+gametime = 50
+
 ROWS, COLS = len(maze), len(maze[0])
 
-# 寻找起点、终点和物品的位置
 start = end = None
 items = set()
 for r in range(ROWS):
@@ -26,41 +25,41 @@ for r in range(ROWS):
         elif maze[r][c] == 'o':
             items.add((r, c))
 
-# 有效移动的方向（左、右、上、下）
-directions = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]
 
-# 检查坐标是否在迷宫内部并且是可行走的路径
-def is_valid(r, c):
-    return 0 <= r < ROWS and 0 <= c < COLS and maze[r][c] != '#'
+
+def is_accessible(maze, new_point):
+    x, y = new_point
+    return maze[x][y] != '#'
+
 
 def bfs():
-    # 队列中的元素为：(当前位置, 已收集的物品集, 步数, 移动方向序列)
+    global gametime
+    visited = set()
+    
     queue = deque([(start, frozenset(), 0, [])])
-    visited = set()  # 用于记录已访问的状态
-
+    
     while queue:
         (r, c), collected, steps, directions_seq = queue.popleft()
 
-        # 如果步数超过限制，则继续下一个状态
-        if steps > 50:
+        if steps > gametime:
             continue
 
-        # 检查是否到达目标且收集了所有物品
         if (r, c) == end and collected == items:
             return directions_seq
 
         for i, (dr, dc) in enumerate(directions):
             new_r, new_c = r + dr, c + dc
+            new_pos = (new_r, new_c)
 
-            if is_valid(new_r, new_c) and (new_r, new_c, collected) not in visited:
+            if is_accessible(maze,new_pos) and (new_r, new_c, collected) not in visited:
                 new_collected = collected | ({(new_r, new_c)} if maze[new_r][new_c] == 'o' else set())
-                new_directions_seq = directions_seq + ['lrud'[i]]  # 添加对应的移动方向
+                new_directions_seq = directions_seq + ['udlrw'[i]]
                 queue.append(((new_r, new_c), new_collected, steps + 1, new_directions_seq))
                 visited.add((new_r, new_c, new_collected))
 
-    return None  # 如果没有找到路径，则返回 None
+    return None
 
-# 执行 BFS 并打印结果
 directions_seq = bfs()
 if directions_seq:
     print("移动序列:", ''.join(directions_seq))

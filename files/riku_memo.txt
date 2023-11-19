@@ -41,3 +41,9 @@ def enemy_C(enemy_pos, player_pos):
 
 def enemy_D(enemy_pos, player_pos) :
 [(0, 1), (-1, 0), (0, -1), (1, 0)]  # r f l b
+
+上下
+(-1, 0) (1, 0)
+左右 
+(0, -1) (0, 1)
+
