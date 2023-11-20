@@ -1,18 +1,30 @@
 from collections import deque
 
-gametime1 = 50
-maze1 = [
-    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
-    ['#', 'o', ' ', ' ', 'C', '#', 'B', ' ', ' ', 'G', '#'],
-    ['#', ' ', '#', '#', ' ', ' ', ' ', '#', '#', ' ', '#'],
-    ['#', ' ', '#', ' ', 'o', '#', 'o', ' ', ' ', ' ', '#'],
-    ['#', ' ', '#', ' ', '#', '#', '#', ' ', '#', ' ', '#'],
-    ['#', 'S', ' ', ' ', ' ', 'o', ' ', ' ', ' ', 'o', '#'],
-    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+gametime2 = 300
+maze2 = [
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
+    ['#', '#', '#', 'o', ' ', ' ', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', '#'],
+    ['#', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#', '#'],
+    ['#', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', 'o', '#'],
+    ['#', 'o', 'C', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', 'o', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'C', '#'],
+    ['#', '#', '#', ' ', '#', '#', 'E', '#', '#', ' ', '#', '#', 'E', '#', '#', ' ', '#', '#', ' ', '#'],
+    ['#', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#'],
+    ['#', 'C', ' ', ' ', ' ', ' ', 'o', ' ', ' ', ' ', ' ', ' ', 'o', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', 'D', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', 'o', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'D', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', ' ', '#', '#', '#'],
+    ['#', 'S', ' ', ' ', ' ', ' ', 'D', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'o', '#', '#', '#'],
+    ['#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'],
 ]
 
-gametime = gametime1
-maze = maze1
+
+gametime = gametime2
+maze = maze2
 
 ROWS, COLS = len(maze), len(maze[0])
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1), (0, 0)]
@@ -32,7 +44,7 @@ for i, row in enumerate(maze):
             items.add((i, j))
 
 # checkpoint
-print(enemies)
+print("start", enemies)
 
 def is_accessible(maze, point, enemies):
     x, y = point
@@ -46,7 +58,7 @@ def move_enemy_func(enemy_pos, directions):
             return new_point
     return enemy_pos
 
-def enemy_A(enemy_pos, player_pos) :
+def enemy_A(enemy_pos, player_pos, enemies) :
     ex, ey = enemy_pos
     px, py = player_pos
 
@@ -65,7 +77,7 @@ def enemy_A(enemy_pos, player_pos) :
 
     return move_enemy_func(enemy_pos, direction)  
 
-def enemy_B(enemy_pos, player_pos) :
+def enemy_B(enemy_pos, player_pos, enemies) :
     ex, ey = enemy_pos
     px, py = player_pos
 
@@ -83,7 +95,14 @@ def enemy_B(enemy_pos, player_pos) :
         direction = [(-1, 0), (0, -1), (1, 0), (0, 1)] # up left down right
     return move_enemy_func(enemy_pos, direction)  
 
-def enemy_C(enemy_pos, player_pos):     # left forward right back
+def enemy_C(enemy_pos, player_pos, enemies):     # left forward right back
+
+    #checkpoint
+    if enemy_pos not in enemies:
+        print(enemy_pos," + ",enemies)
+        raise Exception("KeyError")
+        return enemy_pos
+    
     orientation = enemies[enemy_pos]['orientation']
     if orientation == 'up':
         direction = [(0, -1), (-1, 0), (0, 1), (1, 0)] # left forward right back
@@ -97,7 +116,7 @@ def enemy_C(enemy_pos, player_pos):     # left forward right back
         direction = [(0, 0)]
     return move_enemy_func(enemy_pos, direction)  
 
-def enemy_D(enemy_pos, player_pos) :
+def enemy_D(enemy_pos, player_pos, enemies) :
     orientation = enemies[enemy_pos]['orientation']
     if orientation == 'up':
         direction = [(0, 1), (-1, 0), (0, -1), (1, 0)] # right forward left back
@@ -113,13 +132,13 @@ def enemy_D(enemy_pos, player_pos) :
     return move_enemy_func(enemy_pos, direction)  
 
 enemy_E_state = 'C'
-def enemy_E(enemy_pos, player_pos) :
+def enemy_E(enemy_pos, player_pos, enemies) :
     global enemy_E_state
     if enemy_E_state == 'C':
-        new_pos = enemy_C(enemy_pos, player_pos)
+        new_pos = enemy_C(enemy_pos, player_pos, enemies)
         enemy_E_state = 'D'
     else:
-        new_pos = enemy_D(enemy_pos, player_pos)
+        new_pos = enemy_D(enemy_pos, player_pos, enemies)
         enemy_E_state = 'C'
     return new_pos
 
@@ -130,15 +149,15 @@ def update_enemies(enemies, player_pos):
         orientation = enemy_info['orientation']
 
         if type == 'A':
-            new_pos = enemy_A(pos, player_pos)
+            new_pos = enemy_A(pos, player_pos, enemies)
         elif type == 'B':
-            new_pos = enemy_B(pos, player_pos)
+            new_pos = enemy_B(pos, player_pos, enemies)
         elif type == 'C':
-            new_pos = enemy_C(pos, player_pos)
+            new_pos = enemy_C(pos, player_pos, enemies)
         elif type == 'D':
-            new_pos = enemy_D(pos, player_pos)
+            new_pos = enemy_D(pos, player_pos, enemies)
         elif type == 'E':
-            new_pos = enemy_E(pos, player_pos)
+            new_pos = enemy_E(pos, player_pos, enemies)
 
         if new_pos != pos:
             if type in ['C', 'D', 'E']:
@@ -147,7 +166,7 @@ def update_enemies(enemies, player_pos):
         new_enemies[new_pos] = {'type': type, 'orientation': orientation}
         
     #checkpoint
-    print(new_enemies)
+    # print(new_enemies)
     return new_enemies
 
 def update_orientation(pos, new_pos):
@@ -176,9 +195,11 @@ def bfs():
     global gametime
     visited = set()
     queue = deque([(start, frozenset(), 0, [], enemies)])
-    
+
     while queue:
         (r, c), collected, steps, path, current_enemies = queue.popleft()
+        #checkpoint
+        # print(queue)
 
         if steps > gametime:
             continue
@@ -200,7 +221,7 @@ def bfs():
                 queue.append(new_state)
                 visited.add((new_r, new_c, new_collected))
 
-    return None
+        # return None
 
 path = bfs()
 if path:
