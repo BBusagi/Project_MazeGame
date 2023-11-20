@@ -198,8 +198,10 @@ def bfs():
 
     while queue:
         (r, c), collected, steps, path, current_enemies = queue.popleft()
+
         #checkpoint
         # print(queue)
+        print("=", end="")
 
         if steps > gametime:
             continue
@@ -225,6 +227,7 @@ def bfs():
 
 path = bfs()
 if path:
+    print()
     print("Path:", ''.join(path))
 else:
     print("No path")
