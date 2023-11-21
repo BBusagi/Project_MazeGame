@@ -1,6 +1,10 @@
 # Project_MazeGame
  Create a game based on the requirements
 
+**Main Scripts**  
+[CMD_game](main.py)  
+[Algo_Auto](auto_withE.py)  
+
 ### require [pdf](./files/エンジニア採用課題_require.pdf)  
 map1: https://nangokrstudios.jp/products/recruit/pg/quiz01.txt  
 map2: https://nangokrstudios.jp/products/recruit/pg/quiz02.txt  
@@ -47,9 +51,10 @@ Mainlogic -> Map1 -> Map2 -> Map3
     6.8 C&D                                                           11/16 √
     6.9 E                                                             11/16 √
 
+## Automation scripts
 7. Auto
     7.1 map1_auto_noEnmey                                             11/19 √
     7.2 map1_auto_withEnmey                                           11/19 √
         TIP: enemies,enemy_list
 
-## Automation scripts
+
