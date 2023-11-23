@@ -1,0 +1,12 @@
+map1: 
+Node count: 376
+Path: uuuuddddrruururrdrddllrrrruuuu
+
+map2: 
+Node count: 40885                                                                                                                                                   'E', 'orientation': 'up'}, (13, 39): {'type': 'E', '
+Path: uuurrrrrruuurruuullllluuuluuudddlldddrrdddrrrrrrrrrrddddddrrruuuuuuluuuruuurrudllluuurrr
+
+map3:
+The calculation scale exceeds the program's computing capacity.
+
+//Node count: 36000576(noE)

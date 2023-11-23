@@ -174,13 +174,16 @@ def bfs():
     global gametime
     visited = set()
     queue = deque([(start, frozenset(), 0, [], enemies)])
+    nodes_count = 0
 
     while queue:
         (r, c), collected, steps, path, current_enemies = queue.popleft()
+        nodes_count += 1
+        print(f"Node count: {nodes_count}", end='\r')
 
         #checkpoint
         # print(queue)
-        print("=", end="")
+        # print("=", end="")
 
         if steps > gametime:
             continue
