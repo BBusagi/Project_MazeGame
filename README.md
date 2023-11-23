@@ -67,8 +67,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
         TIP: enemies,enemy_list                                       11/19 √
 
 ## Comprehensive test
-8. Test
-    8.1 Map 1                                                         11/23 √
-    8.2 Map 2                                                         11/23 √
-    8.3 Map 3
+8. Test  
+    8.1 Map 1                                                         11/23 √  
+    8.2 Map 2                                                         11/23 √  
+    8.3 Map 3  
 
