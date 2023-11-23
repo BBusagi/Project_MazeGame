@@ -22,8 +22,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
     2.1 Getting Keyboard Input and Judging  
     2.2 Clearing the screen  
 
-3. Map system           11/10 √
-    3.1 event system
+3. Map system           11/10 √  
+    3.1 event system  
     3.2 '#'             
         BUG: Inputs are not counted after touching the wall         11/12 √
 
@@ -34,8 +34,8 @@ Mainlogic -> Map1 -> Map2 -> Map3
     4.4 G&O_logic  
 
 5. UI system            
-    5.1 time&score        11/10 √
-    5.2 output            11/12 √
+    5.1 time&score        11/10 √  
+    5.2 output            11/12 √  
 
 ## Enemy system
 6. Enemy system  
