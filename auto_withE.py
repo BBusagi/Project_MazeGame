@@ -143,9 +143,7 @@ def update_enemies(enemies, player_pos):
                 orientation = update_orientation(pos, new_pos)
 
         new_enemies[new_pos] = {'type': type, 'orientation': orientation}
-        
-    #checkpoint
-    # print(new_enemies)
+
     return new_enemies
 
 def update_orientation(pos, new_pos):
@@ -178,12 +176,9 @@ def bfs():
 
     while queue:
         (r, c), collected, steps, path, current_enemies = queue.popleft()
+
         nodes_count += 1
         print(f"Node count: {nodes_count}", end='\r')
-
-        #checkpoint
-        # print(queue)
-        # print("=", end="")
 
         if steps > gametime:
             continue
@@ -198,9 +193,6 @@ def bfs():
             if is_accessible(maze, new_point, current_enemies) and (new_r, new_c, collected) not in visited:
                 new_collected = collected | ({new_point} if maze[new_r][new_c] == 'o' else set())
                 new_path = path + ['udlrw'[i]]
-
-                if len(new_collected) - len(collected) > 2:
-                    print(new_path)
 
                 new_enemies = update_enemies(current_enemies, (new_r, new_c))
                 new_state = (new_point, new_collected, steps + 1, new_path, new_enemies)
