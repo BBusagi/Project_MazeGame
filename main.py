@@ -16,6 +16,7 @@ maze = [
 
 
 player_point = [5, 1]  # Amn, init
+goal_point = [1,9]
 
 
 collected = sum(row.count('o') for row in maze)
@@ -33,9 +34,12 @@ def print_maze(maze, player_point):
         for n, cell in enumerate(row):
             if [m, n] == player_point:
                 print('S', end='')
+            elif m == goal_point[0] and n == goal_point[1] and cell ==' ':
+                print('G', end='')
             else:
                 print(cell, end='')                                                                     #point1
         print()
+    
         
     # test point
     global new_point
@@ -92,9 +96,8 @@ def event(point,new_point):
 def is_accessible(maze, new_point):
     x, y = new_point
     
-    return maze[x][y] != '#' and new_point not in enemy_list
-    # return maze[x][y] == ' '
-    # return maze[x][y] in [' ', 'G']    #point4
+    return maze[x][y] not in ['#', 'o'] and new_point not in enemy_list
+    # return maze[x][y] not in ['#', 'G', 'o']   #point4
 
 def move_enemy_func(enemy_pos, directions):
     ex, ey = enemy_pos
@@ -238,7 +241,7 @@ def move_enemy():
                 update_orientation(pos, new_pos)
             else:
                 enemy_list[pos]['orientation'] = 'None'
-                
+            
             maze[pos[0]][pos[1]], maze[new_pos[0]][new_pos[1]] = ' ', maze[pos[0]][pos[1]]
             enemy_list[new_pos] = enemy_list.pop(pos)
 
